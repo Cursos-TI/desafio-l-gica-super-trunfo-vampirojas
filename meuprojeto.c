@@ -2,52 +2,46 @@
 
 // Estrutura para armazenar os dados da carta
 typedef struct {
-    char estado[3];
-    char codigo[10];
     char nome[50];
     int populacao;
     float area;
-    float pib;
-    int pontos_turisticos;
 } Carta;
 
-// Função para calcular a densidade populacional
-float calcularDensidadePopulacional(Carta c) {
-    return c.populacao / c.area;
-}
-
-// Função para calcular o PIB per capita
-float calcularPIBPerCapita(Carta c) {
-    return c.pib / c.populacao;
-}
-
-// Função para comparar duas cartas com base em um atributo
+// Função para comparar a população de duas cartas
 void compararCartas(Carta c1, Carta c2) {
-    // Escolha do atributo para comparação (altere conforme necessário)
-    char atributo[] = "PIB per capita";
-    float valor1 = calcularPIBPerCapita(c1);
-    float valor2 = calcularPIBPerCapita(c2);
+    printf("\nComparação de cartas (Atributo: População):\n\n");
+    printf("Carta 1 - %s: %d\n", c1.nome, c1.populacao);
+    printf("Carta 2 - %s: %d\n", c2.nome, c2.populacao);
     
-    printf("\nComparação de cartas (Atributo: %s):\n\n", atributo);
-    printf("Carta 1 - %s (%s): %.2f\n", c1.nome, c1.estado, valor1);
-    printf("Carta 2 - %s (%s): %.2f\n", c2.nome, c2.estado, valor2);
-    
-    if (valor1 > valor2) {
-        printf("\nResultado: Carta 1 (%s) venceu!\n", c1.nome);
-    } else if (valor2 > valor1) {
-        printf("\nResultado: Carta 2 (%s) venceu!\n", c2.nome);
+    if (c1.populacao > c2.populacao) {
+        printf("\nResultado: %s venceu!\n", c1.nome);
+    } else if (c2.populacao > c1.populacao) {
+        printf("\nResultado: %s venceu!\n", c2.nome);
     } else {
         printf("\nResultado: Empate!\n");
     }
 }
 
 int main() {
-    // Definição de duas cartas pré-cadastradas
-    Carta carta1 = {"SP", "001", "São Paulo", 12300000, 1521.0, 2200000000000.0, 50};
-    Carta carta2 = {"RJ", "002", "Rio de Janeiro", 6000000, 1200.0, 1400000000000.0, 40};
+    Carta cartas[3] = {
+        {"São Paulo", 12300000, 1521.0},
+        {"Rio de Janeiro", 6000000, 1200.0},
+        {"Belo Horizonte", 2500000, 331.0}
+    };
     
-    // Chamar a função de comparação
-    compararCartas(carta1, carta2);
+    int escolha1, escolha2;
+    
+    printf("Escolha duas cartas para comparar:\n");
+    for (int i = 0; i < 3; i++) {
+        printf("%d - %s\n", i + 1, cartas[i].nome);
+    }
+    
+    printf("Digite o número da primeira carta: ");
+    scanf("%d", &escolha1);
+    printf("Digite o número da segunda carta: ");
+    scanf("%d", &escolha2);
+    
+    compararCartas(cartas[escolha1 - 1], cartas[escolha2 - 1]);
     
     return 0;
 }
